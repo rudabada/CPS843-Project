@@ -13,8 +13,8 @@ import time
 
 
 # Get epochs value from user input. Assume user inputs a valid positive integer.
-userInput = input("Enter an epochs value: ")
-epochs = int(userInput)
+userEpochsInput = input("Enter an epochs value: ")
+epochs = int(userEpochsInput)
 
 # Start program timer after user has entered their input.
 start_time = time.time()
@@ -94,12 +94,16 @@ plt.subplot(1, 2, 1)
 plt.plot(epochs_range, acc, label='Training Accuracy')
 plt.plot(epochs_range, val_acc, label='Validation Accuracy')
 plt.legend(loc='lower right')
+plt.xlabel("Epoch Value")
+plt.ylabel("Accuracy in Percentage Value")
 plt.title('Training and Validation Accuracy')
 
 plt.subplot(1, 2, 2)
 plt.plot(epochs_range, loss, label='Training Loss')
 plt.plot(epochs_range, val_loss, label='Validation Loss')
 plt.legend(loc='upper right')
+plt.xlabel("Epoch Value")
+plt.ylabel("Loss")
 plt.title('Training and Validation Loss')
 
 #plt.show()
