@@ -1,3 +1,6 @@
+# Time code source: https://www.freecodecamp.org/news/python-get-current-time/
+# Time code source: https://www.programiz.com/python-programming/datetime/strftime
+
 import os
 import numpy as np
 from keras.preprocessing.image import ImageDataGenerator
