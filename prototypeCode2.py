@@ -9,21 +9,23 @@ import matplotlib.pyplot as plt
 main_folder_path = 'Food-samples-labeled'
 
 # Set image resolution
-img_width, img_height = 224, 224
+img_width = 224
+img_height = 224
 
 # Set batch size and number of classes
 batch_size = 32
 num_classes = 5
 
-# Data augmentation and normalization
+# Data augmentation and normalization. Also reads images from the different directories.
 datagen = ImageDataGenerator(
-    rescale=1./255,
+    rescale=1./255,    # Standardize pixel values to [0,1]
     shear_range=0.2,
     zoom_range=0.2,
     horizontal_flip=True,
-    validation_split=0.2
+    validation_split=0.2    # Means 80% of the images will be trained on while 20% of the images will be validated or tested.
 )
 
+# Reads images from the different directories for model training.
 train_generator = datagen.flow_from_directory(
     main_folder_path,
     target_size=(img_width, img_height),
@@ -31,7 +33,7 @@ train_generator = datagen.flow_from_directory(
     class_mode='categorical',
     subset='training'
 )
-
+# Reads images from the different directories for image validation.
 validation_generator = datagen.flow_from_directory(
     main_folder_path,
     target_size=(img_width, img_height),
@@ -50,8 +52,10 @@ model.add(layers.Dense(256, activation='relu'))
 model.add(layers.Dropout(0.5))
 model.add(layers.Dense(num_classes, activation='softmax'))
 
+# Stops the model training.
 base_model.trainable = False
 
+# Configuration of a neural network's training process.
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Train the model
