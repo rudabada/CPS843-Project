@@ -5,6 +5,16 @@ from keras.applications import VGG16
 from keras import layers
 from keras import models
 import matplotlib.pyplot as plt
+from datetime import datetime
+import time
+
+# Start program timer.
+start_time = time.time()
+
+# Get current date and time.
+now = datetime.now()
+current_time = now.strftime("%H:%M:%S")
+print("Program started at: " + current_time)
 
 main_folder_path = 'Food-samples-labeled'
 
@@ -16,7 +26,7 @@ img_height = 224
 batch_size = 32
 num_classes = 5
 
-# Data augmentation and normalization. Also reads images from the different directories.
+# Preprocessing, data augmentation and normalization. Also reads images from the different directories.
 datagen = ImageDataGenerator(
     rescale=1./255,    # Standardize pixel values to [0,1]
     shear_range=0.2,
@@ -59,7 +69,7 @@ base_model.trainable = False
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Train the model
-epochs = 10
+epochs = 10    # How many times a training dataset passes through the algorithm, in this case the VGG16 model.
 history = model.fit(train_generator, epochs=epochs, validation_data=validation_generator)
 
 # Plot training history
@@ -84,7 +94,13 @@ plt.plot(epochs_range, val_loss, label='Validation Loss')
 plt.legend(loc='upper right')
 plt.title('Training and Validation Loss')
 
-plt.show()
+#plt.show()
+# Create a new subdirectory to store all the figures made by this program. If there is a subdirectory with the same name, overwrite its contents.
+newSubdirectoryName = "Results of using " + str(epochs) + " epochs"
+if os.path.isdir(newSubdirectoryName) == False:
+    os.makedirs(newSubdirectoryName)
+saveFileNameOfTrainingFigures = newSubdirectoryName + "/Figure_training.png"
+plt.savefig(saveFileNameOfTrainingFigures)
 
 # Evaluate the model on the test data
 test_generator = datagen.flow_from_directory(
@@ -128,7 +144,7 @@ for batch_num in range(num_batches):
     end_idx = (batch_num + 1) * images_per_batch
     current_images = all_test_images[start_idx:end_idx]
 
-    plt.figure(figsize=(15, 5))
+    plt.figure(figsize=(15, 10))
     num_rows = 2
     num_cols = 5
 
@@ -140,4 +156,12 @@ for batch_num in range(num_batches):
         predicted_label = class_labels[np.argmax(all_test_predictions[start_idx + i])]
         plt.title(f'True: {true_label}\nPredicted: {predicted_label}')
 
-    plt.show()
+    #plt.show()
+    saveFileName = newSubdirectoryName + "/Figure" + str(batch_num + 1) + ".png"
+    plt.savefig(saveFileName, dpi=300)
+
+now = datetime.now()
+current_time = now.strftime("%H:%M:%S")
+print("Results saved to: \"" + newSubdirectoryName + "\" directory.")
+print("Program ended at: " + current_time)
+print("Program took " + str(time.time() - start_time) + " to run.")
