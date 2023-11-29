@@ -11,7 +11,12 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import time
 
-# Start program timer.
+
+# Get epochs value from user input. Assume user inputs a valid positive integer.
+userInput = input("Enter an epochs value: ")
+epochs = int(userInput)
+
+# Start program timer after user has entered their input.
 start_time = time.time()
 
 # Get current date and time.
