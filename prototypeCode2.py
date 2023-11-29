@@ -77,7 +77,7 @@ base_model.trainable = False
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Train the model
-epochs = 10    # How many times a training dataset passes through the algorithm, in this case the VGG16 model.
+#epochs = 10    # How many times a training dataset passes through the algorithm, in this case the VGG16 model.
 history = model.fit(train_generator, epochs=epochs, validation_data=validation_generator)
 
 # Plot training history
