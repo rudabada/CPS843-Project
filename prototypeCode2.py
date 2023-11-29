@@ -166,5 +166,5 @@ for batch_num in range(num_batches):
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
 print("Results saved to: \"" + newSubdirectoryName + "\" directory.")
-print("Program ended at: " + current_time)
-print("Program took " + str(time.time() - start_time) + " to run.")
+runtimeInMinutes = (time.time() - start_time) / 60
+print("Program took " + str(runtimeInMinutes) + " minutes to run.")
