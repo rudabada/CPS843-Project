@@ -179,11 +179,13 @@ class_labels = list(train_generator.class_indices.keys())
 all_test_predictions_classes = np.argmax(all_test_predictions, axis=1)
 true_classes = np.argmax(all_test_labels, axis=1)
 
-# Generate classification report
+# Generate classification report that includes the evaluation metrics.
 report = classification_report(true_classes, all_test_predictions_classes, target_names=class_labels)
 
-# Print or use the report as needed
-print(report)
+# Save the report to evaluation_metrics.txt file
+evaluation_metricsFilePath = newSubdirectoryName + "\\evaluation_metrics.txt"
+with open(evaluation_metricsFilePath, "w") as evaluation_metricsFile:
+    evaluation_metricsFile.write(report)
 
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
