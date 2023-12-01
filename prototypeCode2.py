@@ -7,6 +7,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.applications import VGG16
 from keras import layers
 from keras import models
+from sklearn.metrics import classification_report
 import matplotlib.pyplot as plt
 from datetime import datetime
 import time
@@ -171,6 +172,18 @@ for batch_num in range(num_batches):
     #plt.show()
     saveFileName = newSubdirectoryName + "/Figure" + str(batch_num + 1) + ".png"
     plt.savefig(saveFileName, dpi=300)
+
+# More evaluation metrics: precision, recall, f1-score, accuracy, support (amount of images), accuracy, macro average, and weighted average.
+# Get class labels and predictions
+class_labels = list(train_generator.class_indices.keys())
+all_test_predictions_classes = np.argmax(all_test_predictions, axis=1)
+true_classes = np.argmax(all_test_labels, axis=1)
+
+# Generate classification report
+report = classification_report(true_classes, all_test_predictions_classes, target_names=class_labels)
+
+# Print or use the report as needed
+print(report)
 
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
