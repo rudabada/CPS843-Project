@@ -182,6 +182,8 @@ true_classes = np.argmax(all_test_labels, axis=1)
 # Generate classification report that includes the evaluation metrics.
 report = classification_report(true_classes, all_test_predictions_classes, target_names=class_labels)
 
+# Print and show the evaluation metrics.
+print(report)
 # Save the report to evaluation_metrics.txt file
 evaluation_metricsFilePath = newSubdirectoryName + "\\evaluation_metrics.txt"
 with open(evaluation_metricsFilePath, "w") as evaluation_metricsFile:
