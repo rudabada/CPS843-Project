@@ -147,6 +147,22 @@ all_test_labels = np.array(all_test_labels)
 # Predictions
 all_test_predictions = model.predict(all_test_images)
 
+# More evaluation metrics: precision, recall, f1-score, accuracy, support (amount of images), accuracy, macro average, and weighted average.
+# Get class labels and predictions
+class_labels = list(train_generator.class_indices.keys())
+all_test_predictions_classes = np.argmax(all_test_predictions, axis=1)
+true_classes = np.argmax(all_test_labels, axis=1)
+
+# Generate classification report that includes the evaluation metrics.
+report = classification_report(true_classes, all_test_predictions_classes, target_names=class_labels)
+
+# Print and show the evaluation metrics.
+print(report)
+# Save the report to evaluation_metrics.txt file
+evaluation_metricsFilePath = newSubdirectoryName + "\\evaluation_metrics.txt"
+with open(evaluation_metricsFilePath, "w") as evaluation_metricsFile:
+    evaluation_metricsFile.write(report)
+
 # Display all test images and predictions, showing 10 images at a time
 num_samples = len(all_test_images)
 images_per_batch = 10
@@ -173,21 +189,7 @@ for batch_num in range(num_batches):
     saveFileName = newSubdirectoryName + "/Figure" + str(batch_num + 1) + ".png"
     plt.savefig(saveFileName, dpi=300)
 
-# More evaluation metrics: precision, recall, f1-score, accuracy, support (amount of images), accuracy, macro average, and weighted average.
-# Get class labels and predictions
-class_labels = list(train_generator.class_indices.keys())
-all_test_predictions_classes = np.argmax(all_test_predictions, axis=1)
-true_classes = np.argmax(all_test_labels, axis=1)
 
-# Generate classification report that includes the evaluation metrics.
-report = classification_report(true_classes, all_test_predictions_classes, target_names=class_labels)
-
-# Print and show the evaluation metrics.
-print(report)
-# Save the report to evaluation_metrics.txt file
-evaluation_metricsFilePath = newSubdirectoryName + "\\evaluation_metrics.txt"
-with open(evaluation_metricsFilePath, "w") as evaluation_metricsFile:
-    evaluation_metricsFile.write(report)
 
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
