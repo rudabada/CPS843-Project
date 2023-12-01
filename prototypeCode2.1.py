@@ -147,7 +147,7 @@ all_test_labels = np.array(all_test_labels)
 # Predictions
 all_test_predictions = model.predict(all_test_images)
 
-# Display all test images and predictions, showing 10 images at a time
+# Display all test images and predictions, showing 20 images at a time
 num_samples = len(all_test_images)
 images_per_batch = 20
 num_batches = int(np.ceil(num_samples / images_per_batch))
