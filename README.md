@@ -1,4 +1,4 @@
-#### *** Please download the food-classifier-Jupyter.ipynb and open it in an editor (VS code) with jupyter notebook extension to check the outputs of the code in the console ***
+#### *** Please download the food-classifier-Jupyter.ipynb file and open it in an editor (VS code) with jupyter notebook extension to check the outputs of the code in the console ***
 
 # Food Image Classifier 
 
